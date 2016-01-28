@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -37,12 +38,23 @@ public class SearchThread extends Thread {
 
         try {
             URL url = new URL(strUrl);
-            InputStream is = url.openStream();
+
+            HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestProperty("Accept", "application/json");
+            urlConnection.connect();
+
+            InputStream is = urlConnection.getInputStream();
+
+            if(is == null){
+                return;
+            }
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+
             String line;
             StringBuffer buffer = new StringBuffer();
 
-            while ((line = reader.readLine()) != null) {
+            while((line = reader.readLine()) != null){
                 buffer.append(line);
             }
 

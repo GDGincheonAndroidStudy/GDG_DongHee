@@ -8,7 +8,7 @@ public class ProductInfo {
     private String name;
     private String imageUrl;
     private String detailPageUrl;
-    private String priductCode;
+    private String productCode;
 
     public String getName() {
         return name;
@@ -34,25 +34,25 @@ public class ProductInfo {
         this.detailPageUrl = detailPageUrl;
     }
 
-    public String getPriductCode() {
-        return priductCode;
+    public String getProductCode() {
+        return productCode;
     }
 
-    public void setPriductCode(String priductCode) {
-        this.priductCode = priductCode;
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
-    public ProductInfo(String name, String imageUrl, String detailPageUrl, String priductCode) {
+    public ProductInfo(String name, String imageUrl, String detailPageUrl, String productCode) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.detailPageUrl = detailPageUrl;
-        this.priductCode = priductCode;
+        this.productCode = productCode;
     }
 
     public ProductInfo() {
         this.name = "";
         this.imageUrl = "";
         this.detailPageUrl = "";
-        this.priductCode = "";
+        this.productCode = "";
     }
 }

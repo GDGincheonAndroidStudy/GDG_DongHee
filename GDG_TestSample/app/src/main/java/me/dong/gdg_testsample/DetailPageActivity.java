@@ -1,5 +1,6 @@
 package me.dong.gdg_testsample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class DetailPageActivity extends AppCompatActivity {
 
@@ -27,6 +29,19 @@ public class DetailPageActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        Intent intent = getIntent();
+        String detailPageUrl = intent.getStringExtra("detailProductUrl");
+
+        mWebView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
+        mWebView.loadUrl(detailPageUrl);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +50,5 @@ public class DetailPageActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
     }
-
 }

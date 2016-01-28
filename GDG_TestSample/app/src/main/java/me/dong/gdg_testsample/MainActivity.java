@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String SearchKeyword = "&searchKeyword=";
     public static final String SortCode = "&sortCode=";
     public static final String Option = "&option=";
-    public static final String AppKey = "&appKey=74934891-2068-3298-85b2-2c26ad396a9e";
-    public static final String Format = "&format=json";
+   // public static final String AppKey = "&appKey=74934891-2068-3298-85b2-2c26ad396a9e";
+    public static final String AppKey = "&appKey=" + BuildConfig.SKPLANET_OPEN_API_APP_KEY;
+    //public static final String Format = "&format=json";
 
     //UTF-8로 인코딩한 검색어
     private String keyWord;
@@ -49,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
     SearchListAdapter mSearchListAdapter;
     ArrayList<ProductInfo> mProductInfoArrayList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.d(TAG, "encoding keyword : " + keyWord);
                         new SearchThread(ProductSearchGetMethod + Version + Count + Page + SearchKeyword +
-                                keyWord + SortCode + Option + AppKey + Format, mSearchListAdapter).start();
+                                keyWord + SortCode + Option + AppKey, mSearchListAdapter).start();
                     }
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Log.d(TAG, "ListItem Click");
             Intent intent = new Intent(MainActivity.this, DetailPageActivity.class);
+            Log.d(TAG, " " + position + " " + id);
             String detailProduct = mProductInfoArrayList.get(position).getDetailPageUrl();
             intent.putExtra("detailProductUrl", detailProduct);
             startActivity(intent);
