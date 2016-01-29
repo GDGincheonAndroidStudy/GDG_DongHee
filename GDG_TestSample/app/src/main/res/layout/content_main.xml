@@ -13,34 +13,58 @@
     tools:context="me.dong.gdg_testsample.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <EditText
-        android:id="@+id/editText_search"
-        android:hint="검색어 입력"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_search"
         android:layout_alignParentTop="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:theme="@style/TextInputLayout_search"
         android:layout_width="256dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:id="@+id/editText_search"
+            android:hint="상품명을 입력하세요"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <!--<EditText-->
+        <!--android:id="@+id/editText_search"-->
+        <!--android:hint="검색어 입력"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_width="256dp"-->
+        <!--android:layout_height="wrap_content"/>-->
 
     <Button
         android:id="@+id/button_search"
-        android:layout_alignBottom="@id/editText_search"
-        android:layout_toRightOf="@id/editText_search"
+        android:layout_alignBottom="@id/textInputLayout_search"
+        android:layout_toRightOf="@id/textInputLayout_search"
         android:text="검색"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <ImageButton
         android:id="@+id/imageButton_searchStrClear"
-        android:layout_width="37dp"
-        android:layout_height="37dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignBottom="@id/button_search"
+        android:layout_marginBottom="12dp"
         android:layout_toLeftOf="@id/button_search"
         android:scaleType="centerCrop"
-        android:src="@android:drawable/ic_delete"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_close_24dp"
         android:visibility="gone"/>
+    <!--android:src="@android:drawable/ic_delete"-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_product"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/editText_search"/>
+        android:layout_below="@id/textInputLayout_search"/>
 
 </RelativeLayout>

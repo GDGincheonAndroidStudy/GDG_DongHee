@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                                 JsonObject joRoot = response.body();
                                 Log.d(TAG, " joRoot " + joRoot);
 
+                                //respone 객체에 내용이 없을 시 예외처리
                                 if (joRoot != null) {
                                     Log.d(TAG, " joRoot is " + joRoot);
                                     ArrayList<Product> productArrayList = new ArrayList<>();
@@ -122,11 +123,14 @@ public class MainActivity extends AppCompatActivity {
 
                                     JsonArray jaProductList = joProducts.getAsJsonArray("Product");
 
-                                    for (int i = 0; i < jaProductList.size(); i++) {
-                                        Product product = new Gson().fromJson(jaProductList.get(i), Product.class);
-                                        productArrayList.add(product);
+                                    //검색어가 이상할 시 상품 Array가 없이 나와 예외처리
+                                    if (jaProductList != null) {
+                                        for (int i = 0; i < jaProductList.size(); i++) {
+                                            Product product = new Gson().fromJson(jaProductList.get(i), Product.class);
+                                            productArrayList.add(product);
+                                        }
+                                        mProductRecyclerViewAdapter.setProductList(productArrayList);
                                     }
-                                    mProductRecyclerViewAdapter.setProductList(productArrayList);
                                 }
                             }
 
