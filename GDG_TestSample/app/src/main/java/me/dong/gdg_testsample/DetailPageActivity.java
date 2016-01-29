@@ -32,6 +32,7 @@ public class DetailPageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String detailPageUrl = intent.getStringExtra("detailProductUrl");
 
+        mWebView = (WebView)findViewById(R.id.webView);
         mWebView.setWebViewClient(new WebViewClient() {
 
             @Override

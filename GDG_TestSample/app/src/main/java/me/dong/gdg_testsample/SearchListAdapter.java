@@ -3,7 +3,6 @@ package me.dong.gdg_testsample;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +17,8 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
 
+import me.dong.gdg_testsample.model.Product;
+
 /**
  * Created by Dong on 2016-01-15.
  */
@@ -27,7 +28,7 @@ public class SearchListAdapter extends BaseAdapter {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private ArrayList<ProductInfo> mProductInfoArrayList;
+    private ArrayList<Product> mProductArrayList;
 
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
@@ -57,12 +58,12 @@ public class SearchListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mProductInfoArrayList.size();
+        return mProductArrayList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mProductInfoArrayList.get(position);
+        return mProductArrayList.get(position);
     }
 
     @Override
@@ -87,15 +88,16 @@ public class SearchListAdapter extends BaseAdapter {
             holder = (ViewHolder)view.getTag();
         }
 
-        ProductInfo productInfo = mProductInfoArrayList.get(position);
-        holder.ivProductImg.setImageUrl(productInfo.getImageUrl(), mImageLoader);
-        holder.tvProductTitle.setText(productInfo.getName());
+        Product product = mProductArrayList.get(position);
+        holder.ivProductImg.setImageUrl(product.getImageUrl(), mImageLoader);
+        holder.tvProductTitle.setText(product.getName());
 
         return view;
     }
 
-    public void setProductInfoList(ArrayList<ProductInfo> productInfoList){
-        mProductInfoArrayList = productInfoList;
+    public void setProductList(ArrayList<Product> productList){
+        mProductArrayList = productList;
+        notifyDataSetChanged();
     }
 
     static class ViewHolder{

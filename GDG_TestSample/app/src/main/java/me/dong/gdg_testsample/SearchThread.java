@@ -13,6 +13,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import me.dong.gdg_testsample.model.Product;
+
 /**
  * Created by Dong on 2016-01-16.
  */
@@ -23,13 +25,13 @@ public class SearchThread extends Thread {
     Handler mHandler;
     SearchListAdapter adapter;
     String strUrl;
-    ArrayList<ProductInfo> productInfoList;
+    ArrayList<Product> mProductList;
 
     public SearchThread(String strUrl, SearchListAdapter adapter) {
         mHandler = new Handler();
         this.strUrl = strUrl;
         this.adapter = adapter;
-        this.productInfoList = new ArrayList<>();
+        this.mProductList = new ArrayList<>();
     }
 
     @Override
@@ -74,21 +76,21 @@ public class SearchThread extends Thread {
                 String name = product.getString("ProductName");
                 String imgUrl = product.getString("ProductImage");
                 String detailPageUrl = product.getString("DetailPageUrl");
-                String productCode = product.getString("ProductCode");
+                Integer productCode = product.getInt("ProductCode");
 
                 Log.d(TAG, " name : " + name);
                 Log.d(TAG, " imgurl : " + imgUrl);
                 Log.d(TAG, " detailurl : " + detailPageUrl);
                 Log.d(TAG, " detailurl : " + detailPageUrl);
 
-                ProductInfo productInfo = new ProductInfo(name, imgUrl, detailPageUrl, productCode);
-                productInfoList.add(productInfo);
+                Product productInfo = new Product(name, imgUrl, detailPageUrl, productCode);
+                mProductList.add(productInfo);
             }
 
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    adapter.setProductInfoList(productInfoList);
+                    adapter.setProductList(mProductList);
                     adapter.notifyDataSetChanged();
                 }
             });

@@ -9,39 +9,39 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import me.dong.gdg_testsample.model.Product;
+import me.dong.gdg_testsample.network.BackendHelper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    //상품검색 api
-    public static final String ProductSearchGetMethod = "http://apis.skplanetx.com/11st/common/products?";
-    public static final String Version = "version=1";
-    public static final String Count = "&count=";
-    public static final String Page = "&page=";
-    public static final String SearchKeyword = "&searchKeyword=";
-    public static final String SortCode = "&sortCode=";
-    public static final String Option = "&option=";
-   // public static final String AppKey = "&appKey=74934891-2068-3298-85b2-2c26ad396a9e";
-    public static final String AppKey = "&appKey=" + BuildConfig.SKPLANET_OPEN_API_APP_KEY;
-    //public static final String Format = "&format=json";
+    protected static BackendHelper requestHelper;
 
     //UTF-8로 인코딩한 검색어
-    private String keyWord;
+    private String strKeyWord;
 
     private EditText etSearch;
     private ImageButton ibSearchStrClear;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView mListView;
 
     SearchListAdapter mSearchListAdapter;
-    ArrayList<ProductInfo> mProductInfoArrayList;
+    ArrayList<Product> mProductArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if (requestHelper == null) {
+            requestHelper = BackendHelper.getInstance();
+        }
 
         ibSearchStrClear = (ImageButton) findViewById(R.id.imageButton_searchStrClear);
         ibSearchStrClear.setOnClickListener(new View.OnClickListener() {
@@ -97,11 +101,43 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "검색어를 입력하세요.", Toast.LENGTH_SHORT).show();
                     } else {
 
-                        keyWord = URLEncoder.encode(strSearch, "UTF-8");
+                        strKeyWord = URLEncoder.encode(strSearch, "UTF-8");
 
-                        Log.d(TAG, "encoding keyword : " + keyWord);
-                        new SearchThread(ProductSearchGetMethod + Version + Count + Page + SearchKeyword +
-                                keyWord + SortCode + Option + AppKey, mSearchListAdapter).start();
+                        Log.d(TAG, "encoding keyword : " + strKeyWord);
+
+                        Call<JsonObject> call = requestHelper.productSearch(strKeyWord);
+
+                        call.enqueue(new Callback<JsonObject>() {
+                            @Override
+                            public void onResponse(Response<JsonObject> response) {
+
+                                JsonObject joRoot = response.body();
+                                Log.d(TAG, " joRoot " + joRoot);
+
+                                if (joRoot != null) {
+                                    Log.d(TAG, " joRoot is " + joRoot);
+                                    ArrayList<Product> productArrayList = new ArrayList<>();
+
+                                    JsonObject joProductSearchResponse = joRoot.getAsJsonObject("ProductSearchResponse");
+                                    Log.d(TAG, "ProductSearchResponse : " + joProductSearchResponse);
+
+                                    JsonObject joProducts = joProductSearchResponse.getAsJsonObject("Products");
+
+                                    JsonArray jaProductList = joProducts.getAsJsonArray("Product");
+
+                                    for (int i = 0; i < jaProductList.size(); i++) {
+                                        Product product = new Gson().fromJson(jaProductList.get(i), Product.class);
+                                        productArrayList.add(product);
+                                    }
+                                    mSearchListAdapter.setProductList(productArrayList);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Throwable t) {
+                                Log.e(TAG, " Throwable is " + t);
+                            }
+                        });
                     }
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -112,9 +148,9 @@ public class MainActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.listView);
         mListView.setOnItemClickListener(mOnItemClickListener);
 
-        mProductInfoArrayList = new ArrayList<>();
+        mProductArrayList = new ArrayList<>();
         mSearchListAdapter = new SearchListAdapter(this);
-        mSearchListAdapter.setProductInfoList(mProductInfoArrayList);
+        mSearchListAdapter.setProductList(mProductArrayList);
         mListView.setAdapter(mSearchListAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -133,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "ListItem Click");
             Intent intent = new Intent(MainActivity.this, DetailPageActivity.class);
             Log.d(TAG, " " + position + " " + id);
-            String detailProduct = mProductInfoArrayList.get(position).getDetailPageUrl();
+            String detailProduct = ((Product)mSearchListAdapter.getItem(position)).getDetailPageUrl();
             intent.putExtra("detailProductUrl", detailProduct);
             startActivity(intent);
         }

@@ -1,14 +1,23 @@
-package me.dong.gdg_testsample;
+package me.dong.gdg_testsample.model;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Dong on 2016-01-15.
  */
-public class ProductInfo {
+public class Product {
 
+    @SerializedName("ProductName")
     private String name;
+
+    @SerializedName("ProductImage")
     private String imageUrl;
+
+    @SerializedName("DetailPageUrl")
     private String detailPageUrl;
-    private String productCode;
+
+    @SerializedName("ProductCode")
+    private Integer productCode;
 
     public String getName() {
         return name;
@@ -34,25 +43,25 @@ public class ProductInfo {
         this.detailPageUrl = detailPageUrl;
     }
 
-    public String getProductCode() {
+    public Integer getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(String productCode) {
+    public void setProductCode(Integer productCode) {
         this.productCode = productCode;
     }
 
-    public ProductInfo(String name, String imageUrl, String detailPageUrl, String productCode) {
+    public Product(String name, String imageUrl, String detailPageUrl, Integer productCode) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.detailPageUrl = detailPageUrl;
         this.productCode = productCode;
     }
 
-    public ProductInfo() {
+    public Product() {
         this.name = "";
         this.imageUrl = "";
         this.detailPageUrl = "";
-        this.productCode = "";
+        this.productCode = 0;
     }
 }
