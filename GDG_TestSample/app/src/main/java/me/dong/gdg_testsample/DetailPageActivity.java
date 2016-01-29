@@ -32,7 +32,7 @@ public class DetailPageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String detailPageUrl = intent.getStringExtra("detailProductUrl");
 
-        mWebView = (WebView)findViewById(R.id.webView);
+        mWebView = (WebView) findViewById(R.id.webView);
         mWebView.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -43,13 +43,5 @@ public class DetailPageActivity extends AppCompatActivity {
         });
         mWebView.loadUrl(detailPageUrl);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 }

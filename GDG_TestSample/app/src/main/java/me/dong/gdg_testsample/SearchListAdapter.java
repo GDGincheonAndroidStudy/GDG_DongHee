@@ -77,7 +77,7 @@ public class SearchListAdapter extends BaseAdapter {
         final ViewHolder holder;
 
         if(view == null){
-            view = mLayoutInflater.inflate(R.layout.item_list, parent, false);
+            view = mLayoutInflater.inflate(R.layout.item_product, parent, false);
             holder = new ViewHolder();
 
             holder.ivProductImg = (NetworkImageView)view.findViewById(R.id.imageView_product_image);

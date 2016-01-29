@@ -37,11 +37,10 @@
         android:src="@android:drawable/ic_delete"
         android:visibility="gone"/>
 
-    <ListView
-        android:id="@+id/listView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_product"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/editText_search">
-    </ListView>
+        android:layout_below="@id/editText_search"/>
 
 </RelativeLayout>

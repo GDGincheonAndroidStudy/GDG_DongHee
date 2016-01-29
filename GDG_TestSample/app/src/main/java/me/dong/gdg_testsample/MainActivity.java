@@ -1,10 +1,11 @@
 package me.dong.gdg_testsample;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,11 +13,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -29,10 +28,10 @@ import java.util.ArrayList;
 
 import me.dong.gdg_testsample.model.Product;
 import me.dong.gdg_testsample.network.BackendHelper;
+import me.dong.gdg_testsample.utils.SpacesItemDecoration;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,10 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText etSearch;
     private ImageButton ibSearchStrClear;
     private Button btnSearch;
-    private ListView mListView;
-
-    SearchListAdapter mSearchListAdapter;
-    ArrayList<Product> mProductArrayList;
+    private RecyclerView rvProduct;
+    ProductRecyclerViewAdapter mProductRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                                         Product product = new Gson().fromJson(jaProductList.get(i), Product.class);
                                         productArrayList.add(product);
                                     }
-                                    mSearchListAdapter.setProductList(productArrayList);
+                                    mProductRecyclerViewAdapter.setProductList(productArrayList);
                                 }
                             }
 
@@ -145,13 +142,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mListView = (ListView) findViewById(R.id.listView);
-        mListView.setOnItemClickListener(mOnItemClickListener);
+        //recyclerView initialization
+        rvProduct = (RecyclerView) findViewById(R.id.recyclerView_product);
+        rvProduct.setHasFixedSize(true);
+        rvProduct.setLayoutManager(new LinearLayoutManager(this));
+        rvProduct.addItemDecoration(new SpacesItemDecoration(24));
 
-        mProductArrayList = new ArrayList<>();
-        mSearchListAdapter = new SearchListAdapter(this);
-        mSearchListAdapter.setProductList(mProductArrayList);
-        mListView.setAdapter(mSearchListAdapter);
+        mProductRecyclerViewAdapter = new ProductRecyclerViewAdapter(this);
+        rvProduct.setAdapter(mProductRecyclerViewAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -162,18 +160,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    private AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Log.d(TAG, "ListItem Click");
-            Intent intent = new Intent(MainActivity.this, DetailPageActivity.class);
-            Log.d(TAG, " " + position + " " + id);
-            String detailProduct = ((Product)mSearchListAdapter.getItem(position)).getDetailPageUrl();
-            intent.putExtra("detailProductUrl", detailProduct);
-            startActivity(intent);
-        }
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
