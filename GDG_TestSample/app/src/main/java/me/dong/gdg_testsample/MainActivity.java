@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton ibSearchStrClear;
     private Button btnSearch;
     private RecyclerView rvProduct;
-    ProductRecyclerViewAdapter mProductRecyclerViewAdapter;
+    private ProductRecyclerViewAdapter mProductRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
