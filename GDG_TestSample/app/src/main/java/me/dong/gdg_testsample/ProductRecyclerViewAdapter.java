@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import java.util.ArrayList;
 
 import me.dong.gdg_testsample.model.Product;
+import me.dong.gdg_testsample.ui.ProductItemView;
 
 /**
  * Created by Dong on 2016-01-29.
@@ -59,27 +60,14 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mLayoutInflater.inflate(R.layout.item_product, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        ViewHolder vh = new ViewHolder(new ProductItemView(parent.getContext()));
+        return vh;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Product product = mProductArrayList.get(position);
-
-        holder.tvProductTitle.setText(product.getName());
-        holder.ivProductImg.setImageUrl(product.getImageUrl(), mImageLoader);
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "ListItem Click");
-                Intent intent = new Intent(mContext, DetailPageActivity.class);
-                String detailProduct = product.getDetailPageUrl();
-                intent.putExtra("detailProductUrl", detailProduct);
-                mContext.startActivity(intent);
-            }
-        });
+        Product product = mProductArrayList.get(position);
+        holder.productItemView.bind(product, mImageLoader);
     }
 
     @Override
@@ -87,21 +75,18 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         return mProductArrayList.size();
     }
 
-    public void setProductList(ArrayList<Product> productList){
+    public void setProductList(ArrayList<Product> productList) {
         mProductArrayList = productList;
         notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        NetworkImageView ivProductImg;
-        TextView tvProductTitle;
-        View mView;
 
-        public ViewHolder(View itemView) {
+        private final ProductItemView productItemView;
+
+        public ViewHolder(ProductItemView itemView) {
             super(itemView);
-            mView = itemView;
-            ivProductImg = (NetworkImageView) itemView.findViewById(R.id.imageView_product_image);
-            tvProductTitle = (TextView) itemView.findViewById(R.id.textView_product_title);
+            this.productItemView = itemView;
         }
     }
 }

@@ -2,4 +2,8 @@
     <string name="app_name">GDG_TestSample</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_detail_page">DetailPageActivity</string>
+    <string name="title_activity_realm_search">RealmSearchActivity</string>
+
+    <string name="search_hint">상품명을 입력하세요</string>
+
 </resources>

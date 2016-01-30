@@ -29,6 +29,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.dong.gdg_testsample.MainActivity"/>
         </activity>
+        <activity
+            android:name=".RealmSearchActivity"
+            android:label="@string/title_activity_realm_search"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.dong.gdg_testsample.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

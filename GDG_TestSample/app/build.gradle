@@ -44,6 +44,11 @@ dependencies {
     compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
+    //realm
+    compile 'io.realm:realm-android:0.87.1'
+    compile 'com.github.thorbenprimke:realm-searchview:0.9.1'
+
+
     /*
     Android Testing Support Library
     */

@@ -2,6 +2,9 @@ package me.dong.gdg_testsample.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+import io.realm.annotations.Required;
+
 /**
  * Created by Dong on 2016-01-15.
  */

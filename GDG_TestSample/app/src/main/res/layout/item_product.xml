@@ -28,7 +28,7 @@
             android:layout_toRightOf="@+id/imageView_product_image"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:text="title"
+            android:text="name"
             android:textSize="20sp"/>
     </RelativeLayout>
 
