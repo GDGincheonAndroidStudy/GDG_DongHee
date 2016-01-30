@@ -24,13 +24,12 @@ import me.dong.gdg_testsample.ui.ProductItemView;
 /**
  * Created by Dong on 2016-01-29.
  */
-public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.ViewHolder> {
+public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductViweHolder> {
 
     public static final String TAG = ProductRecyclerViewAdapter.class.getSimpleName();
 
     private ArrayList<Product> mProductArrayList;
     private Context mContext;
-    private LayoutInflater mLayoutInflater;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private ImageLoader.ImageCache mImageCache = new ImageLoader.ImageCache() {
@@ -52,20 +51,19 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
 
     public ProductRecyclerViewAdapter(Context context) {
         mContext = context;
-        mLayoutInflater = mLayoutInflater.from(mContext);
         mRequestQueue = Volley.newRequestQueue(mContext);
         mImageLoader = new ImageLoader(mRequestQueue, mImageCache);
         mProductArrayList = new ArrayList<>();
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolder vh = new ViewHolder(new ProductItemView(parent.getContext()));
+    public ProductViweHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ProductViweHolder vh = new ProductViweHolder(new ProductItemView(parent.getContext()));
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ProductViweHolder holder, int position) {
         Product product = mProductArrayList.get(position);
         holder.productItemView.bind(product, mImageLoader);
     }
@@ -78,15 +76,5 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     public void setProductList(ArrayList<Product> productList) {
         mProductArrayList = productList;
         notifyDataSetChanged();
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        private final ProductItemView productItemView;
-
-        public ViewHolder(ProductItemView itemView) {
-            super(itemView);
-            this.productItemView = itemView;
-        }
     }
 }

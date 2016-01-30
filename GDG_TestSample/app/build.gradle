@@ -46,7 +46,7 @@ dependencies {
 
     //realm
     compile 'io.realm:realm-android:0.87.1'
-    compile 'com.github.thorbenprimke:realm-searchview:0.9.1'
+    compile 'com.github.thorbenprimke:realm-searchview:0.9.4'
 
 
     /*

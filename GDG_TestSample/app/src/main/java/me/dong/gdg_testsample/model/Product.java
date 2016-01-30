@@ -8,7 +8,7 @@ import io.realm.annotations.Required;
 /**
  * Created by Dong on 2016-01-15.
  */
-public class Product {
+public class Product extends RealmObject {
 
     @SerializedName("ProductName")
     private String name;
