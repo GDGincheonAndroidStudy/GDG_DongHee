@@ -6,12 +6,12 @@
  - 상품명으로 원하는 상품을 검색하여 리스트형식으로 보여준다.
 
 ## Using Library
- - Retrofit
- - okhttp
- - Volley
- - Realm
- - Android Testing Support Library
- - Android Design Support Library
+ - [Retrofit](http://square.github.io/retrofit/)
+ - [okhttp](http://square.github.io/okhttp/)
+ - [Volley](https://gist.github.com/benelog/5981448)
+ - [Realm](https://realm.io/kr/)
+ - [Android Testing Support Library](https://google.github.io/android-testing-support-library/)
+ - [Android Design Support Library](http://android-developers.blogspot.kr/2015/05/android-design-support-library.html)
 
 ## 2주차 과제 
  - REST API 통신을 사용하는 샘플 프로젝트 작성
