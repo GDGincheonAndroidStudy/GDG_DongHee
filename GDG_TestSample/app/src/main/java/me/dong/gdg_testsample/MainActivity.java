@@ -3,7 +3,6 @@ package me.dong.gdg_testsample;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -27,6 +25,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.internal.IOException;
 import me.dong.gdg_testsample.model.Product;
 import me.dong.gdg_testsample.network.BackendHelper;
 import me.dong.gdg_testsample.utils.SpacesItemDecoration;
@@ -127,10 +127,35 @@ public class MainActivity extends AppCompatActivity {
                                     //검색어가 이상할 시 상품 Array가 없이 나와 예외처리
                                     if (jaProductList != null) {
                                         for (int i = 0; i < jaProductList.size(); i++) {
-                                            Product product = new Gson().fromJson(jaProductList.get(i), Product.class);
+                                            Log.d(TAG, "gson : " + i);
+                                            Product product = ((MyApplication) getApplicationContext()).mGson.fromJson(jaProductList.get(i), Product.class);
                                             productArrayList.add(product);
                                         }
                                         mProductRecyclerViewAdapter.setProductList(productArrayList);
+                                        Log.d(TAG, "gson end :");
+                                        /*
+                                        데이터 저장
+                                         */
+                                        Realm realm = null;
+                                        try {
+                                            //이 스레드에서 Realm인스턴스 얻기
+                                            realm = Realm.getInstance(MainActivity.this);
+                                            Log.d(TAG, "realm : ");
+
+                                            //데이터를 손쉽게 영속적으로 만들기
+                                            realm.beginTransaction();
+//                                            realm.copyToRealm(productArrayList);
+                                            realm.copyToRealmOrUpdate(productArrayList);
+                                            realm.commitTransaction();
+                                        } catch (IOException e) {
+                                            if (realm != null) {
+                                                realm.cancelTransaction();
+                                            }
+                                        } finally {
+                                            if (realm != null) {
+                                                realm.close();
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -148,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //recyclerView initialization
-        rvProduct = (RecyclerView) findViewById(R.id.recyclerView_product);
+        rvProduct = (RecyclerView)findViewById(R.id.recyclerView_product);
         rvProduct.setHasFixedSize(true);
         rvProduct.setLayoutManager(new LinearLayoutManager(this));
         rvProduct.addItemDecoration(new SpacesItemDecoration(24));

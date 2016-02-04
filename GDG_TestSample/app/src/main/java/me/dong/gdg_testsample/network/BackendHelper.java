@@ -1,7 +1,12 @@
 package me.dong.gdg_testsample.network;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import io.realm.RealmObject;
 import me.dong.gdg_testsample.utils.Constants;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -25,6 +30,21 @@ public class BackendHelper {
             .addInterceptor(logging)
             .build();
 
+    //realm config
+    Gson mGson = new GsonBuilder()
+            .setExclusionStrategies(new ExclusionStrategy() {
+                @Override
+                public boolean shouldSkipField(FieldAttributes f) {
+                    return f.getDeclaringClass().equals(RealmObject.class);
+                }
+
+                @Override
+                public boolean shouldSkipClass(Class<?> clazz) {
+                    return false;
+                }
+            })
+            .create();
+
     //singleton pattern
     public static BackendHelper getInstance() {
         synchronized (BackendHelper.class) {
@@ -38,7 +58,7 @@ public class BackendHelper {
     private BackendHelper() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(mGson))
                 .client(mOkHttpClient)
                 .build();
 

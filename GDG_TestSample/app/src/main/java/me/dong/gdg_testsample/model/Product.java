@@ -3,6 +3,7 @@ package me.dong.gdg_testsample.model;
 import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
 /**
@@ -10,6 +11,8 @@ import io.realm.annotations.Required;
  */
 public class Product extends RealmObject {
 
+    //기본키(암묵적으로 @Index 지원)
+    @PrimaryKey
     @SerializedName("ProductName")
     private String name;
 
@@ -19,6 +22,8 @@ public class Product extends RealmObject {
     @SerializedName("DetailPageUrl")
     private String detailPageUrl;
 
+    //null값을 허용하지 않는다.
+    @Required
     @SerializedName("ProductCode")
     private Integer productCode;
 
