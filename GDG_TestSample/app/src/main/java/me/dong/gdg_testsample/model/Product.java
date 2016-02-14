@@ -9,6 +9,7 @@ import io.realm.annotations.Required;
 /**
  * Created by Dong on 2016-01-15.
  */
+//model: 비즈니스 로직과 데이터
 public class Product extends RealmObject {
 
     //기본키(암묵적으로 @Index 지원)
