@@ -16,7 +16,7 @@ import io.realm.RealmObject;
  */
 public class MyApplication extends Application {
 
-    Gson mGson;
+    public Gson mGson;
 
     @Override
     public void onCreate() {
