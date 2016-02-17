@@ -29,12 +29,13 @@ import io.realm.Realm;
 import io.realm.internal.IOException;
 import me.dong.gdg_testsample.model.Product;
 import me.dong.gdg_testsample.network.BackendHelper;
+import me.dong.gdg_testsample.presenter.MainPresenter;
 import me.dong.gdg_testsample.utils.SpacesItemDecoration;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainPresenter.View {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -213,5 +214,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private MainPresenter mMainPresenter;
+
+    private Button btnConfirm;
+
+
+
+
+    @Override
+    public void setButtonText(String text) {
+
     }
 }
