@@ -13,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
+import retrofit2.RxJavaCallAdapterFactory;
 
 /**
  * Created by Dong on 2016-01-29.
@@ -59,6 +60,7 @@ public class BackendHelper {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create(mGson))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(mOkHttpClient)
                 .build();
 
@@ -67,7 +69,7 @@ public class BackendHelper {
 
     //Todo: api 구현
     //상품 검색
-    public Call<JsonObject> productSearch(String searchKeyword) {
+    public rx.Observable<JsonObject> productSearch(String searchKeyword) {
         return service.productSearch(Constants.apiVersion, searchKeyword);
     }
 

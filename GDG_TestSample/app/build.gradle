@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 23
@@ -38,6 +39,7 @@ dependencies {
     def retrofitVersion = '2.0.0-beta3'
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
 
     //okhttp
     def okhttpVersion = '3.0.0-RC1'
@@ -48,6 +50,9 @@ dependencies {
     compile 'io.realm:realm-android:0.87.1'
     compile 'com.github.thorbenprimke:realm-searchview:0.9.4'
 
+    //Rx
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
 
     /*
     Android Testing Support Library
@@ -69,4 +74,5 @@ dependencies {
     //androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     androidTestCompile 'com.android.support:support-annotations:23.1.1'
 
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }

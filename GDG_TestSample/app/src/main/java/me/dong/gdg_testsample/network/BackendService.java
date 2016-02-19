@@ -33,13 +33,18 @@ public interface BackendService {
             "appKey: " + Constants.myKEY
     })
     //상품 검색
+//    @GET("products")
+//    Call<JsonObject> productSearch(@Query("version") String version,
+//                                   @Query("searchKeyword") String searchKeyword);
     @GET("products")
-    Call<JsonObject> productSearch(@Query("version") String version, @Query("searchKeyword") String searchKeyword);
+    rx.Observable<JsonObject> productSearch(@Query("version") String version,
+                                   @Query("searchKeyword") String searchKeyword);
 
     //상품정보 조회
     @Headers("Accept: application/json")
     @GET("products/{productCode}")
-    Call<JsonObject> productInfoSearch(@Query("version") String version, @Path("productCode") Integer productCode);
+    Call<JsonObject> productInfoSearch(@Query("version") String version,
+                                       @Path("productCode") Integer productCode);
 
 
 }
