@@ -26,3 +26,23 @@
 	> 앞으로 만들어야할 NewFeature & Bug수정들을 백로그에 담아 직접 InProgress -> Done시키면서 적용해본다.
  - [Android AweSomeUI에 있는 UI라이브러리들을 한번 훓어본다.](https://github.com/wasabeef/awesome-android-ui)
 	> 생각보다 유연하게 사용할 수 있는 서드파티 라이브러리
+
+## 6주차 과제
+ - MVC, MVVM, MVP 패턴 적용하기
+ - 참고 자료
+ 	- [Android와 개발 패턴(잔디)](http://tosslab.github.io/android/2015/03/01/01.Android-mvc-mvvm-mvp/)
+
+## 7주차 과제
+ - RxJava, RxAndroid로 샘플앱 만들어오기
+ - 참고 자료
+ 	- [Rx(Reactive Extensions) 기반 반응형 응용프로그램 아키텍처](http://www.slideshare.net/sangdonkim9022/td-2015-54718812)
+ 	- [Android Best Practice](https://github.com/minsoopark/android-best-practices-kor)
+ 	- [GKAC 2015 Apr. - RxAndroid](https://www.youtube.com/watch?v=FpIqbVTnB30)
+ 	- [RxJava Observable tranformation: concatMap() vs flatMap()](http://fernandocejas.com/2015/01/11/rxjava-observable-tranformation-concatmap-vs-flatmap/)
+ 	- [Grokking RxJava, Part 1: The Basics](http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/)
+
+
+
+## 8주차 과제
+ - Kotlin으로 샘플앱 만들기!
+
