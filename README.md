@@ -12,6 +12,10 @@
  - [Realm](https://realm.io/kr/)
  - [Android Testing Support Library](https://google.github.io/android-testing-support-library/)
  - [Android Design Support Library](http://android-developers.blogspot.kr/2015/05/android-design-support-library.html)
+ - [RxAndroid](https://github.com/ReactiveX/RxAndroid)
+ - [RxBinding](https://github.com/JakeWharton/RxBinding)
+ - [Retrolambda](https://github.com/evant/gradle-retrolambda)
+ - [Anko](https://github.com/Kotlin/anko#basics)
 
 ## 2주차 과제 
  - REST API 통신을 사용하는 샘플 프로젝트 작성
@@ -31,6 +35,7 @@
  - MVC, MVVM, MVP 패턴 적용하기
  - 참고 자료
  	- [Android와 개발 패턴(잔디)](http://tosslab.github.io/android/2015/03/01/01.Android-mvc-mvvm-mvp/)
+ 	- [MVC? MVP? 무엇에 쓰는 패턴인가?](http://www.androidpub.com/index.php?_filter=search&mid=android_dev_info&search_target=title&search_keyword=mvp&document_srl=2393225)
 
 ## 7주차 과제
  - RxJava, RxAndroid로 샘플앱 만들어오기
@@ -41,8 +46,15 @@
  	- [RxJava Observable tranformation: concatMap() vs flatMap()](http://fernandocejas.com/2015/01/11/rxjava-observable-tranformation-concatmap-vs-flatmap/)
  	- [Grokking RxJava, Part 1: The Basics](http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/)
 
-
-
 ## 8주차 과제
  - Kotlin으로 샘플앱 만들기!
-
+ - 참고자료
+ 	- [Kotlin](http://kotlinlang.org/docs/reference/object-declarations.html)
+ 	- [kotlin-examples](https://github.com/JetBrains/kotlin-examples)
+ 	- [안녕하세요. 코틀린 #1](https://realm.io/kr/news/kotlin-1/)
+ 	- [Android & Kotlin](https://docs.google.com/presentation/d/1-b9XfUQSfW1QBap9HPNtZpHEgaFrr8SjFfGEmpPS730/mobilepresent?pli=1&slide=id.p)
+ 	- [빠르진 않지만 일단 만나보는 코틀린](http://www.slideshare.net/parkjoongsoo1/ss-58654366)
+ 	- [Announcing Anko for Android](http://blog.jetbrains.com/kotlin/2015/04/announcing-anko-for-android/)
+ 	- [Advanced Features of Anko](http://blog.jetbrains.com/kotlin/2015/05/advanced-features-of-anko/)
+ 	- [Build Android UI In Code Painlessly With Anko And Kotlin.](https://www.ykode.com/2015/10/24/android-rxjava-anko.html)
+ 	- [OfflineArticles](https://github.com/passy/OfflineArticles)
